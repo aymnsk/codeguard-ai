@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: codeguard-ai
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python -c "import nltk; nltk.download('stopwords', quiet=True); nltk.download('punkt', quiet=True)"
+    startCommand: cd dashboard && gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: PORT
+        value: 5000
+      - key: USE_LLM_FALLBACK
+        value: true
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: data
+      mountPath: /opt/render/project/data
+      sizeGB: 1
