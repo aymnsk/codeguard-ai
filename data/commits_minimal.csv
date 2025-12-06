@@ -1,0 +1,7 @@
+message,is_bug_fix
+Fix memory leak,True
+Add new feature,False
+Fix crash bug,True
+Update docs,False
+Fix error #123,True
+Refactor code,False
